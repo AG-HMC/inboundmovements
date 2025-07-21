@@ -1,0 +1,229 @@
+<mvc:View controllerName="inboundmovements.inboundmovements.controller.List"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:ndc="sap.ndc"
+    displayBlock="true"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+	<f:DynamicPage fitContent="true" showFooter="{parts: [{path:'messageModel>/List'}], formatter:'.handleFooterVisibility'}" headerPinned="true" headerExpanded="true" toggleHeaderOnTitleClick="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<HBox alignItems="Center">
+						<!-- <Button icon="sap-icon://nav-back"
+                        type="Transparent"
+                        tooltip="Back"
+                        press="onNavBack" /> -->
+						<Title text="{globalDataModel>/Source} - {appName>/name}" level="H1" class="sapUiSmallMarginBegin"/>
+					</HBox>
+				</f:heading>
+				<f:navigationActions>
+					<Button type="Emphasized"
+								text="Scan"
+								press="onScanPress"
+								 />
+				</f:navigationActions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar persistencyKey="myPersKey" useToolbar="false" search="onSearch" filterChange=".onFilterChange" showFilterConfiguration="false">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem name="Warehouse Number" label="{i18n>WarehouseNumber}" groupName="Group1" visibleInFilterBar="true" mandatory="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/WarehouseNumber}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('WH')" submit="onSubmit($event,'WH')"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<!-- <fb:FilterGroupItem name="Warehouse Order" label="{i18n>WarehouseOrder}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/WarehouseOrder}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('WO')" submit="onSubmit($event,'WO')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Warehouse Task" label="{i18n>WarehouseTask}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/WarehouseTask}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('WT')" submit="onSubmit($event,'WT')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem> -->
+							<fb:FilterGroupItem name="Product" label="{i18n>Product}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/Product}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('PROD')" submit="onSubmit($event,'PROD')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Handling Unit" label="{i18n>HandlingUnit}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/HandlingUnit}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('HU')" submit="onSubmit($event,'HU')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Batch" label="{i18n>Batch}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/Batch}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('BATCH')" submit="onSubmit($event,'BATCH')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<!-- <fb:FilterGroupItem name="Warehouse Task Status" label="{i18n>WarehouseTaskStatus}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/WarehouseTaskStatus}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('WTS')" submit="onSubmit($event,'WTS')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem> -->
+							<!-- <fb:FilterGroupItem name="Warehouse Process Category" label="{i18n>WarehouseProcessCategory}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/WarehouseProcessCategory}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('WPC')" submit="onSubmit($event,'WPC')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem> -->
+							<fb:FilterGroupItem name="Resource" label="{i18n>Resource}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/Resource}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('RESOURCE')" submit="onSubmit($event,'RESOURCE')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Destination Storage Type" label="{i18n>DestinationStorageType}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/StorageType}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('DST')" submit="onSubmit($event,'DST')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Destination Storage Bin" label="{i18n>DestinationStorageBin}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox>
+										<Input value="{globalDataModel>/HeaderFilter/StorageBin}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('DSB')" submit="onSubmit($event,'DSB')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							
+
+
+
+
+
+
+
+
+
+							<!-- <fb:FilterGroupItem name="Destination Storage Type" label="{i18n>DestinationStorageType}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox class="sapUiTinyMarginTop">
+										<Input value="{globalDataModel>/HeaderFilter/DestinationStorageType}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('DST')" submit="onSubmit($event,'DST')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem name="Destination Storage Bin" label="{i18n>DestinationStorageBin}" groupName="Group1" visibleInFilterBar="true">
+								<fb:control>
+									<HBox class="sapUiTinyMarginTop">
+										<Input value="{globalDataModel>/HeaderFilter/DestinationStorageBin}" showValueHelp="true" valueHelpRequest="onValueHelpRequest('DSB')" submit="onSubmit($event,'DSB')"
+										enabled="{= !${globalDataModel>/HeaderFilter/WarehouseNumber} ? false : true}"/>
+									</HBox>
+								</fb:control>
+							</fb:FilterGroupItem> -->
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<VBox justifyContent="Start">
+				<Table id="putawayTable" inset="false" mode="MultiSelect" autoPopinMode="true" contextualWidth="Auto" popinChanged=".onPopinChanged" sticky="ColumnHeaders,HeaderToolbar">
+    <headerToolbar>
+        <OverflowToolbar>
+            <ToolbarSpacer/>
+            <Button text="{i18n>Assign}" press="onAssignPress" type="Emphasized"/>
+        </OverflowToolbar>
+    </headerToolbar>
+    <columns>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseNumber}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseOrder}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseTask}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseTaskItem}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>Product}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>SourceHandlingUnit}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>Batch}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseTaskStatus}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseProcessCategory}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>DestinationStorageType}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>DestinationStorageBin}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>SourceStorageType}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>SourceStorageBin}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>WarehouseProcessType}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>ExecutingResource}"/>
+        </Column>
+        <Column popinDisplay="Inline">
+            <Text text="{i18n>Queue}"/>
+        </Column>
+    </columns>
+    <items></items>
+</Table>
+
+			</VBox>
+		</f:content>
+		<f:footer>
+			<OverflowToolbar>
+				<Button
+					icon="sap-icon://message-error"
+					type="Negative"
+					text= "{path: 'messageModel>/List', formatter: '.handleErrorCount'}"
+					press=".handleMessageViewPress"/>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

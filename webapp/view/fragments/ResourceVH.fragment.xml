@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="{i18n>Resources}"
+		items="{
+			path: '/FetchResourceList'
+		}"
+		search=".onValueHelpSearch($event,'RESOURCE')"
+		confirm=".onValueHelpConfirm($event,'RESOURCE')"
+		cancel=".onValueHelpClose">
+		<StandardListItem
+			title="{ExecutingResource}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,14 @@
+<mvc:View controllerName="inboundmovements.inboundmovements.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <FlexBox direction="Column" justifyContent="Center" alignItems="Center" class="sapUiSizeMax">
+        <VBox alignItems="Center" justifyContent="Center">
+            <Button text="{i18n>Pack}" width="100px" type="Emphasized" press="onButtonPress('Pack')" class="sapUiTinyMargin"/>
+            <Button text="{i18n>UnPack}" width="100px" type="Emphasized" press="onButtonPress('Unpack')" class="sapUiTinyMargin"/>
+            <Button text="{i18n>Putaway}" width="100px" type="Emphasized" press="onButtonPress('Putaway')" class="sapUiTinyMargin" visible="{= ${appName>/name} === 'Putaway'}"/>
+            <Button text="{i18n>Picking}" width="100px" type="Emphasized" press="onButtonPress('Picking')" class="sapUiTinyMargin" visible="{= ${appName>/name} === 'Picking'}"/>
+        </VBox>
+        </FlexBox>
+    </Page>
+</mvc:View>

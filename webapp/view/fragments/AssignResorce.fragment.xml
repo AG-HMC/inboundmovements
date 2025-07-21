@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:layout="sap.ui.layout">
+  
+  <Dialog
+    id="assignResourceDialog"
+    title="Assign Resource"
+    draggable="true"
+    resizable="true"
+    contentWidth="30rem">
+    
+    <VBox class="sapUiSmallMargin">
+      <Label text="Resource"/>
+      <Input width="100%" showValueHelp="true" value="{assignmentModel>/AssignedResource}"  valueHelpRequest="onValueHelpRequest('RESOURCE_A')" submit="onSubmit($event,'RESOURCE_A')"/>
+    </VBox>
+    
+    <buttons>
+    <Button text="Assign to Me" type="Emphasized" press="onAssignToMe"/>
+      <Button text="Assign" type="Emphasized" press="onAssign"/>
+      <Button text="Cancel" press="onCancelAssignReource"/>
+    </buttons>
+    
+  </Dialog>
+</core:FragmentDefinition>

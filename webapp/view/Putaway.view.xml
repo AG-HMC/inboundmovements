@@ -1,0 +1,13 @@
+<mvc:View controllerName="inboundmovements.inboundmovements.controller.Putaway"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page title="{i18n>title}" showHeader="false">
+       <FlexBox direction="Column" justifyContent="Center" alignItems="Center" class="sapUiSizeMax">
+        <VBox alignItems="Center" justifyContent="Center">
+            <Button text="{i18n>AssignTasks}" width="200px" type="Emphasized" press="onButtonPress('Assign Tasks')" class="sapUiTinyMargin"/>
+            <Button text="{i18n>AssignedToMe}" width="200px" type="Emphasized" press="onButtonPress('Assigned To Me')" class="sapUiTinyMargin"/>
+            <Button text="{i18n>AllTasks}" width="200px" type="Emphasized" press="onButtonPress('All Tasks')" class="sapUiTinyMargin"/>
+        </VBox>
+        </FlexBox>
+    </Page>
+</mvc:View>
