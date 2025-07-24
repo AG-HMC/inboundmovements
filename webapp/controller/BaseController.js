@@ -246,14 +246,15 @@ sap.ui.define([
         _fetchQueueValue: function(WarehouseNumber) {
             return new Promise((resolve, reject) => {
                 BusyIndicator.show();
-                var oFilter = new Filter("WarehouseNumber", FilterOperator.EQ, WarehouseNumber);
+                var oFilter1 = new Filter("WarehouseNumber", FilterOperator.EQ, WarehouseNumber);
+                var oFilter2 = new Filter("WarehouseNumber", FilterOperator.EQ, "***");
                 this._oComponent.getModel("sboModel").read("/ZZ1_ZY_WAREHOUSEPARAMS", {
-                    filters: [oFilter],
+                    filters: [oFilter1, oFilter2],
                     success: function(data) {
-                        if (data.results.filter(item => item.App.toUpperCase() === this._oComponent.getModel("appName").getProperty("/name").toUpperCase())[0])
-                            resolve(data.results.filter(item => item.App.toUpperCase() === this._oComponent.getModel("appName").getProperty("/name").toUpperCase())[0].ValueLow);
+                        if (data.results.filter(item => item.App.toUpperCase() === this._oComponent.getModel("appName").getProperty("/name").toUpperCase() && item.WarehouseNumber === WarehouseNumber)[0])
+                            resolve((data.results.filter(item => item.App.toUpperCase() === this._oComponent.getModel("appName").getProperty("/name").toUpperCase() && item.WarehouseNumber === WarehouseNumber)[0]).ValueLow);
                         else
-                            resolve("***");
+                            resolve((data.results.filter(item => item.App.toUpperCase() === this._oComponent.getModel("appName").getProperty("/name").toUpperCase() && item.WarehouseNumber === "***")[0]).ValueLow);
                     }.bind(this),
                     error: function(oError) {
                         reject(oError);

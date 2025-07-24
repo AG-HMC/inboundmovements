@@ -2,7 +2,7 @@
 	<SelectDialog
 		title="{i18n>Batches}"
 		items="{
-			path: '/ZEWM_I_PhysStkBatchVH'
+			path: '/ZSCM_I_PhysStkBatchVH'
 		}"
 		search=".onValueHelpSearch($event,'BATCH')"
 		confirm=".onValueHelpConfirm($event,'BATCH')"

@@ -437,31 +437,31 @@ sap.ui.define([
                 // Mapping of scan sources to paths and fields
                 const filterConfig = {
                     'PROD': {
-                        path: "/ZEWM_I_ProductVH",
+                        path: "/ZSCM_I_ProductVH",
                         key: "Product",
                         filterKey: "Product",
                         additionalFilters: ["WarehouseNumber", "StorageType", "StorageBin"]
                     },
                     'DSB': {
-                        path: "/ZEWM_I_StorageBinVH",
+                        path: "/ZSCM_I_StorageBinVH",
                         key: "StorageBin",
                         filterKey: "StorageBin",
                         additionalFilters: ["WarehouseNumber", "StorageType"]
                     },
                     'HU': {
-                        path: "/ZEWM_I_HandlingUnitTypeVH",
+                        path: "/ZSCM_I_HandlingUnitTypeVH",
                         key: "HandlingUnitNumber",
                         filterKey: "HandlingUnit",
                         additionalFilters: ["WarehouseNumber", "StorageType", "StorageBin"]
                     },
                     'BATCH': {
-                        path: "/ZEWM_I_PhysStkBatchVH",
+                        path: "/ZSCM_I_PhysStkBatchVH",
                         key: "Batch",
                         filterKey: "Batch",
                         additionalFilters: ["WarehouseNumber", "StorageType", "StorageBin", "Product"]
                     },
                     'DST': {
-                        path: "/ZEWM_I_StorageTypeVH",
+                        path: "/ZSCM_I_StorageTypeVH",
                         key: "StorageType",
                         filterKey: "StorageType",
                         additionalFilters: ["WarehouseNumber"]
@@ -850,6 +850,9 @@ sap.ui.define([
 
         onErrorDialogClose: function() {
             this._errorDialog.close();
+            const list = this.getView().getModel("messageModel").getProperty("/List");
+            const failedCount = list.filter(item => item.failed === true).length;
+        if (failedCount === 0)
             this.onSearch.bind(this)();
         },
 
