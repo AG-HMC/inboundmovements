@@ -242,7 +242,7 @@ sap.ui.define([
             }
         },
 
-        // Fetches queue value from backend for a warehouse
+        // Fetch Queue value for given warehouse (used in assignment workflows)
         _fetchQueueValue: function(WarehouseNumber) {
             return new Promise((resolve, reject) => {
                 BusyIndicator.show();
@@ -354,9 +354,12 @@ sap.ui.define([
         // Logs on to the warehouse resource
         _logonToWarehouseResource: function(WarehouseNumber, sToken) {
             return new Promise((resolve, reject) => {
+                // Get the assigned resource from the model
                 var Resource = this.getView().getModel('assignmentModel').getProperty("/AssignedResource");
+                // Construct URL for the logon action on the resource entity
                 var sUrl = "/sap/opu/odata4/sap/api_warehouse_resource_2/srvd_a2x/sap/warehouseresource/0001/WarehouseResource(EWMWarehouse='" + WarehouseNumber + "',EWMResource='" + Resource + "')/SAP__self.LogonToWarehouseResource";
 
+                // Execute the POST request with CSRF token for authentication
                 jQuery.ajax({
                     url: sUrl,
                     method: "POST",
@@ -383,12 +386,16 @@ sap.ui.define([
         // Assigns a resource to a warehouse order
         _assignResouce: function(WarehouseNumber, WarehouseOrder, sToken, etag) {
             return new Promise((resolve, reject) => {
+                // Construct assignment endpoint URL
                 var sUrl = "/sap/opu/odata4/sap/api_warehouse_order_task_2/srvd_a2x/sap/warehouseorder/0001/WarehouseOrder(EWMWarehouse='" + WarehouseNumber + "',WarehouseOrder='" + WarehouseOrder + "')/SAP__self.AssignWarehouseOrder";
+                // Get the assigned resource value
                 var Resource = this.getView().getModel('assignmentModel').getProperty("/AssignedResource");
+                // Payload containing resource to assign
                 var oPayload = {
                     "EWMResource": Resource
                 };
 
+                // Execute POST request with CSRF token and ETag for concurrency control
                 jQuery.ajax({
                     url: sUrl,
                     method: "POST",
@@ -413,7 +420,7 @@ sap.ui.define([
             });
         },
 
-        // Logs off the currently assigned resource
+        // Logs off the assigned warehouse resource via POST call
         _logonOffWarehouseResource: function(WarehouseNumber, sToken) {
             return new Promise((resolve, reject) => {
                 var Resource = this.getView().getModel('assignmentModel').getProperty("/AssignedResource");
@@ -440,10 +447,13 @@ sap.ui.define([
             });
         },
 
+        // Unassigns the warehouse resource from the warehouse order
         _unassignWarehouseResource: function(WarehouseNumber, WarehouseOrder, sToken, etag){
             return new Promise((resolve, reject) => {
+                // Construct unassignment endpoint URL
                 var sUrl = "/sap/opu/odata4/sap/api_warehouse_order_task_2/srvd_a2x/sap/warehouseorder/0001/WarehouseOrder(EWMWarehouse='" + WarehouseNumber + "',WarehouseOrder='" + WarehouseOrder + "')/SAP__self.UnassignWarehouseOrder";
 
+                // Execute POST request with CSRF token and ETag
                 jQuery.ajax({
                     url: sUrl,
                     method: "POST",

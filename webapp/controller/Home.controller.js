@@ -30,6 +30,7 @@ sap.ui.define([
             }
         },
         
+        // This is event is triggered on the button
         onButtonPress: function(source) {
             if (source === 'Putaway' || source === 'Picking') {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
